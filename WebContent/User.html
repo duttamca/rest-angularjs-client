@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <style>
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style> -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-resource.min.js"></script>
+<script src= "app.js"></script>
+</head>
+<body ng-app="usersApp">
+<h1 align="center">Below is the List of available users</h1>
+<div ng-controller="UserResourceController"> 
+
+<!-- <form class="well">
+        <label>User Name</label>
+        <input type="text" name="name" ng-model="newuser.userName" value="user name"/>
+        <label>Email ID</label>
+        <input type="text" name="email" ng-model="newuser.emailID" value="email id"/>
+        <br/>
+        <input type="hidden" ng-model="newuser.userID" value="userid"/>
+        <input type="button" value="Save" ng-click="addUser()" class="btn btn-primary" />
+    </form> -->
+	<table class="table table-striped table-condensed">
+		<tr>
+			<th>USER ID</th>
+			<th>USER NAME</th>
+			<th>EMAIL ID</th>
+		</tr>
+		<tr ng-repeat="user in users | orderBy:'userID'">
+			<td>{{user.userID}}</td>
+			<td>{{user.userName}}</td>
+			<td>{{user.emailID}}</td>
+			<td><a ng-click="editUser(user.userID,user.userName,user.emailID)" class="btn btn-small btn-primary">edit</a></td>
+			<td><a ng-click="deleteUser(user.userID)" class="btn btn-small btn-danger">delete</a></td>
+		</tr>
+
+	</table>
+	
+	<a ng-click="toggle()" class="btn btn-small">Add New User</a>
+	
+	<p ng-show="myVar">
+		User Name: <input type=text ng-model="userName"><br>
+		Email ID: <input type=text ng-model="emailID"><br><br>
+		<a ng-click="addUser(userName,emailID)" class="btn btn-small btn-danger">Add User</a>
+	</p>
+
+</div>
+
+<!-- <script>
+function usersController($scope,$http) {
+	//alert("Hello");
+	loadUsers();
+	function loadUsers(){
+			$http.get("http://localhost:7001/UsersRestWS/rest/v1/users/")
+		  .success(function(response) {$scope.users = response;});
+	};
+  
+  
+  $scope.deleteUser = function(id){
+	 var confirm = window.confirm("Confirm Delete");
+	 if(confirm){
+		 
+		 //alert(("http://localhost:7001/UsersRestWS/rest/v1/users/delete/"+id));
+		  $http.delete("http://localhost:7001/UsersRestWS/rest/v1/users/delete/"+id)
+		  .success(function() {
+			  //alert("User Deleted");
+			  loadUsers();
+			});
+		  	
+		  	//.success(function(response) {$scope.users = response;});
+		 
+	 }
+	 
+	  
+  }; 
+  
+  $scope.toggle = function() {
+      $scope.myVar = !$scope.myVar;
+  };
+  
+  $scope.addUser = function(username,emailid){
+	  
+	  alert(username);
+	  alert(emailid);
+	  
+	  var dataObj = {
+				userName : username,
+				emailID : emailid
+				
+		};
+	  //alert(dataObj);
+	  
+	  $http.post("http://localhost:7001/UsersRestWS/rest/v1/users/",dataObj)
+	  .success(function() {
+		  alert("User added");
+		  loadUsers();
+		});
+  };
+  
+}
+</script>  -->
+
+</body>
+</html>
